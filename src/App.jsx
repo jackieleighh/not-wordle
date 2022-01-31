@@ -96,8 +96,8 @@ export default function App() {
               // DID WE WIN??
               if (correct === 5) {
                 // WE WON!!!!
-                setModalTitle('Woooo!');
-                setModalBody('you are so cool you just won wordle! congrats! time to celebrate');
+                setModalTitle('woooo!');
+                setModalBody('you are so cool you just won not the real wordle! congrats!');
                 setModalOpen(true);
               } else if (tries.length < 5) {
                 t.push(guess);
@@ -107,8 +107,8 @@ export default function App() {
                 setCurrentIdx(0);
               } else {
                 // oh no we ran out of tries :(
-                setModalTitle('Oh no!');
-                setModalBody('Looks like you ran out of tries :(');
+                setModalTitle('oh no!');
+                setModalBody('looks like you ran out of tries :(');
                 setModalOpen(true);
               }
             } else {
