@@ -121,7 +121,7 @@ export default function App() {
               // DID WE WIN??
               if (correct === 5) {
                 // WE WON!!!!
-                setModalTitle('woooo!');
+                setModalTitle(`woooo! ${guessStr.toLowerCase()}!`);
                 setModalBody('you are so cool you just won not the real wordle! congrats!');
                 setModalOpen(true);
               } else if (tries.length < 5) {
