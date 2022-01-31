@@ -1,3 +1,7 @@
+.simple-keyboard {
+    max-width: 360px;
+    margin: auto;
+}
 .simple-keyboard.hg-layout-default .hg-button.key-green {
     background: #009933;
 }
@@ -5,5 +9,5 @@
     background: #ffcc00;
 }
 .simple-keyboard.hg-layout-default .hg-button.key-grey {
-    background: #383838;
+    background: #808080;
 }
