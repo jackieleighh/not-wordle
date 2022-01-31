@@ -10,6 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 // keyboard
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
+import './index.css';
 
 const PLACE = {
   Correct: 0,
@@ -51,6 +52,11 @@ export default function App() {
   const [snackNoti, setSnackbarNoti] = useState('');
   const handleSnackClose = () => setSnackbarOpen(false);
 
+  // for keyboard
+  const [greenKeys, setGreenKeys] = useState('');
+  const [yellowKeys, setYellowKeys] = useState('');
+  const [greyKeys, setGreyKeys] = useState('');
+
   const requestOptions = {
     async: true,
     crossDomain: true,
@@ -83,16 +89,27 @@ export default function App() {
             if (result.word) {
               // add to tries
               const guess = []; let correct = 0; const t = tries;
+              let greenKeyStr = greenKeys;
+              let yellowKeyStr = yellowKeys;
+              let greyKeyStr = greyKeys;
               for (let i = 0; i < 5; i += 1) {
                 if (currentGuess[i] === word.charAt(i)) {
                   guess[i] = { letter: currentGuess[i], correct: PLACE.Correct };
                   correct += 1;
+                  greenKeyStr += `${currentGuess[i]} `;
                 } else if (word.includes(currentGuess[i])) {
                   guess[i] = { letter: currentGuess[i], correct: PLACE.Almost };
+                  yellowKeyStr += `${currentGuess[i]} `;
                 } else {
                   guess[i] = { letter: currentGuess[i], correct: PLACE.Nope };
+                  greyKeyStr += `${currentGuess[i]} `;
                 }
               }
+
+              setGreenKeys(greenKeyStr);
+              setYellowKeys(yellowKeyStr);
+              setGreyKeys(greyKeyStr);
+
               // DID WE WIN??
               if (correct === 5) {
                 // WE WON!!!!
@@ -132,22 +149,6 @@ export default function App() {
       setCurrentGuess(guess);
     }
   };
-
-  // TODO - colorize keyboard based on guesses
-  const keyboard = new Keyboard({
-    onKeyPress: (button) => onKeyboardPress(button),
-    layout: {
-      default: [
-        'Q W E R T Y U I O P',
-        'A S D F G H J K L',
-        '{ent} Z X C V B N M {backspace}',
-      ],
-    },
-    display: {
-      '{backspace}': '⌫',
-      '{ent}': 'go!',
-    },
-  });
 
   const getTriesLeft = () => {
     const t = [];
@@ -189,7 +190,35 @@ export default function App() {
         {getTriesLeft()}
       </GuessTable>
       { /* render keyboard */ }
-      {keyboard}
+      <Keyboard
+        onKeyPress={(button) => onKeyboardPress(button)}
+        layout={{
+          default: [
+            'Q W E R T Y U I O P',
+            'A S D F G H J K L',
+            '{ent} Z X C V B N M {backspace}',
+          ],
+        }}
+        display={{
+          '{backspace}': '⌫',
+          '{ent}': 'go!',
+        }}
+        theme="hg-theme-default hg-layout-default"
+        buttonTheme={[
+          {
+            class: 'key-grey',
+            buttons: greyKeys,
+          },
+          {
+            class: 'key-yellow',
+            buttons: yellowKeys,
+          },
+          {
+            class: 'key-green',
+            buttons: greenKeys,
+          },
+        ]}
+      />
       { /* modal for notis */ }
       <Modal
         open={modalOpen}
