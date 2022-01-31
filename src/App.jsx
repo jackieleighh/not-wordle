@@ -96,13 +96,21 @@ export default function App() {
                 if (currentGuess[i] === word.charAt(i)) {
                   guess[i] = { letter: currentGuess[i], correct: PLACE.Correct };
                   correct += 1;
-                  greenKeyStr += `${currentGuess[i]} `;
+                  if (!greenKeyStr.includes(currentGuess[i])) {
+                    greenKeyStr += `${currentGuess[i]} `;
+                    yellowKeyStr = yellowKeyStr.replace(currentGuess[i], '');
+                  }
                 } else if (word.includes(currentGuess[i])) {
                   guess[i] = { letter: currentGuess[i], correct: PLACE.Almost };
-                  yellowKeyStr += `${currentGuess[i]} `;
+                  if (!yellowKeyStr.includes(currentGuess[i])
+                  && !greenKeyStr.includes(currentGuess[i])) {
+                    yellowKeyStr += `${currentGuess[i]} `;
+                  }
                 } else {
                   guess[i] = { letter: currentGuess[i], correct: PLACE.Nope };
-                  greyKeyStr += `${currentGuess[i]} `;
+                  if (!greyKeyStr.includes(currentGuess[i])) {
+                    greyKeyStr += `${currentGuess[i]} `;
+                  }
                 }
               }
 
