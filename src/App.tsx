@@ -144,7 +144,7 @@ export default function App() {
               } else {
                 // oh no we ran out of tries :(
                 setModalTitle('oh no!');
-                setModalBody('looks like you ran out of tries :(');
+                setModalBody(`looks like you ran out of tries :( your word was ${word}`);
                 setModalOpen(true);
               }
             } else {
